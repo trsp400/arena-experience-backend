@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE "event" (
+CREATE TABLE "Event" (
     "id" SERIAL NOT NULL,
     "eventName" TEXT NOT NULL,
     "eventDate" TIMESTAMP(3) NOT NULL,
@@ -14,5 +14,5 @@ CREATE TABLE "event" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
 
-    CONSTRAINT "event_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );
