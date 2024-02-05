@@ -32,7 +32,7 @@ const envToLogger: any = {
 }
 
 const server = Fastify({ logger: envToLogger[NODE_ENV] ?? true });
-const PORT = process.env.PORT as unknown as number;
+const PORT = process.env.PORT as unknown as number || 3001;
 
 server.register(cors)
 
