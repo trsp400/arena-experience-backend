@@ -35,7 +35,6 @@ const envToLogger: any = {
 }
 
 const server = Fastify({ logger: envToLogger[NODE_ENV] ?? true });
-const PORT = process.env.PORT as unknown as number || 3001;
 
 server.register(cors)
 
@@ -66,8 +65,8 @@ eventParticipationRoutes(server);
 
 const start = async () => {
   try {
-    await server.listen({ port: PORT });
-    server.log.info(`server listening on ${PORT}`);
+    await server.listen({ port: process.env.PORT as unknown as number || 3001 });
+    server.log.info(`server listening on ${process.env.PORT}`);
     server.log.info(`Address ${server?.server?.address()}`)
   } catch (err) {
     server.log.error(err);
