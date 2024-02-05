@@ -12,7 +12,6 @@
     "start": "node dist/index.js",
     "start-dev": "ts-node-dev --files src/index.ts",
     "postinstall": "npx prisma generate && tsc -p tsconfig.json",
-    "heroku-postbuild": "npx prisma generate",
     "deploy": "git add . && git commit -m 'heroku build' && git push heroku master"
   },
   "keywords": [],
