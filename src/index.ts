@@ -67,7 +67,7 @@ eventParticipationRoutes(server);
 const start = async () => {
   try {
     await server.listen({ port: PORT });
-    server.log.info(`server listening on PORT`);
+    server.log.info(`server listening on ${PORT}`);
     server.log.info(`Address ${server?.server?.address()}`)
   } catch (err) {
     server.log.error(err);
