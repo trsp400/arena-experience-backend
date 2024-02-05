@@ -1,10 +1,13 @@
 import Fastify from 'fastify';
+import dotenv from 'dotenv';
 import cors from '@fastify/cors'
 import userRoutes from './routes/userRoutes';
 import eventRoutes from './routes/eventRoutes';
 import healthCheckRoutes from './routes/healthCheckRoutes';
 import eventParticipationRoutes from './routes/eventParticipationRoutes';
 import { authMiddleware } from './middlewares/authMiddleware';
+
+dotenv.config();
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
 const now = () => Date.now();
@@ -64,7 +67,8 @@ eventParticipationRoutes(server);
 const start = async () => {
   try {
     await server.listen({ port: PORT });
-    server.log.info(`server listening on ${server?.server?.address()}`);
+    server.log.info(`server listening on PORT`);
+    server.log.info(`Address ${server?.server?.address()}`)
   } catch (err) {
     server.log.error(err);
     process.exit(1);
