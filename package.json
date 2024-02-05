@@ -3,9 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
+    "prebuild": "npm install",
     "build": "tsc -p tsconfig.json",
-    "start": "ts-node src/index.ts",
+    "start": "node dist/index.js",
+    "postinstall": "tsc",
     "start-dev": "ts-node-dev --files src/index.ts"
   },
   "keywords": [],
