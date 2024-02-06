@@ -64,10 +64,11 @@ healthCheckRoutes(server);
 eventParticipationRoutes(server);
 
 const port = parseInt(process.env.PORT ?? "3001", 10);
+const host = process.env.DEFAULT_HOST || "0.0.0.0"
 
 const start = async () => {
   try {
-    await server.listen({ port: port, host: "0.0.0.0" });
+    await server.listen({ port: port, host });
     server.log.info(`server listening on ${process.env.PORT}`);
     server.log.info(`Address ${server?.server?.address()}`)
   } catch (err) {

@@ -31,8 +31,11 @@ export const EventService = {
           some: {
             userId: userId,
             deletedAt: participating ? null : { not: null }
-          }
+          },
         }
+      },
+      orderBy: {
+        createdAt: 'desc'
       },
       include: {
         EventUserParticipation: {

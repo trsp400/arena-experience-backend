@@ -38,7 +38,8 @@ export function authMiddleware(request: FastifyRequest, reply: FastifyReply, don
       { path: '/events', methods: ['GET'] },
       { path: '/events/:id', methods: ['GET'] },
       { path: '/events/:eventId/participate', methods: ['POST'] },
-      { path: '/users/:id', methods: ['PUT'] }
+      { path: '/users/:id', methods: ['PUT'] },
+      { path: '/users/:id', methods: ['PUT', 'GET'] }
     ];
 
     // Verifica se a rota e o método são permitidos para o role do usuário
