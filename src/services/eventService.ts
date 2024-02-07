@@ -20,7 +20,10 @@ export const EventService = {
     return prisma.event.update({ where: { id }, data: eventData });
   },
 
-  async deleteEvent(id: number): Promise<Event> {
+  async deleteEvent(id: number): Promise<any> {
+    await prisma.eventUserParticipation.deleteMany({
+      where: { eventId: id },
+    });
     return prisma.event.delete({ where: { id } });
   },
 

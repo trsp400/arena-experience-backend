@@ -109,6 +109,7 @@ export const EventController = {
   async deleteEvent(request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) {
     try {
       const eventId = parseInt(request.params.id);
+
       if (isNaN(eventId)) {
         return reply.status(400).send({ message: 'Invalid event ID' });
       }

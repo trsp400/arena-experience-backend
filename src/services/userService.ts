@@ -1,6 +1,7 @@
 import { PrismaClient, User } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { UserInput } from '../entrypoints/DTO/UserInput';
+import { IUserRegister } from '../@types/user';
 
 const prisma = new PrismaClient();
 
@@ -23,7 +24,7 @@ export const UserService = {
   },
 
   async findAllUsers(): Promise<User[]> {
-    return prisma.user.findMany();
+    return prisma.user.findMany({ where: { role: 'user' } });
   },
 
   async updateUser(id: number, userData: UserInput): Promise<User> {
@@ -37,13 +38,17 @@ export const UserService = {
   },
 
   async deleteUser(id: number): Promise<User> {
+    await prisma.eventUserParticipation.deleteMany({
+      where: { userId: id },
+    });
     return prisma.user.delete({ where: { id } });
   },
 
-  async registerUser(userData: { fullName: string; birthdate: Date; email: string; phoneNumber: string; password: string; }): Promise<User> {
+  async registerUser(userData: IUserRegister): Promise<User> {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const userCreateData = {
       fullName: userData.fullName,
+      church: userData?.church,
       birthdate: userData.birthdate,
       email: userData.email,
       phoneNumber: userData.phoneNumber,
@@ -61,3 +66,4 @@ export const UserService = {
     return null;
   }
 };
+

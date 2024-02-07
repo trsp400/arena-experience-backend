@@ -19,6 +19,7 @@ export const UserController = {
         email: Joi.string().email().required(),
         password: Joi.string().required(),
         fullName: Joi.string().required(),
+        church: Joi.string().required(),
         profileImageUrl: Joi.string().uri().allow(null, ''),
         phoneNumber: Joi.string().required(),
         address: Joi.string().allow(null, ''),
@@ -27,8 +28,6 @@ export const UserController = {
         zipcode: Joi.string().allow(null, ''),
         birthdate: Joi.date().required()
       });
-
-      console.log(request.body)
 
       const { error, value } = userSchema.validate(request.body);
       if (error) {
@@ -43,6 +42,7 @@ export const UserController = {
       const userResponse = {
         id: user.id,
         email: user.email,
+        church: user.church,
         fullName: user.fullName,
         phoneNumber: user.phoneNumber
       };
@@ -96,14 +96,15 @@ export const UserController = {
       const updateSchema = Joi.object({
         email: Joi.string().email(),
         password: Joi.string().optional(),
-        fullName: Joi.string(),
+        fullName: Joi.string().optional(),
         profileImageUrl: Joi.string().uri().allow(null, ''),
         phoneNumber: Joi.string(),
         address: Joi.string().allow(null, ''),
         city: Joi.string().allow(null, ''),
         state: Joi.string().allow(null, ''),
         zipcode: Joi.string().allow(null, ''),
-        birthdate: Joi.date()
+        birthdate: Joi.date().allow(null, ''),
+        church: Joi.string().optional()
       });
 
       const { error, value } = updateSchema.validate(request.body);
@@ -128,6 +129,7 @@ export const UserController = {
         fullName: updatedUser.fullName,
         phoneNumber: updatedUser.phoneNumber,
         address: updatedUser.address,
+        church: updatedUser.church,
         birthdate: updatedUser.birthdate,
         city: updatedUser.city,
         profileImageUrl: updatedUser.profileImageUrl,
@@ -166,6 +168,7 @@ export const UserController = {
     try {
       const registerSchema = Joi.object({
         fullName: Joi.string().required(),
+        church: Joi.string().required(),
         birthdate: Joi.date().required(),
         email: Joi.string().email().required(),
         phoneNumber: Joi.string().required(),
@@ -195,6 +198,7 @@ export const UserController = {
         id: user.id,
         email: user.email,
         fullName: user.fullName,
+        church: user?.church,
         role: user.role,
         profileImageUrl: user.profileImageUrl,
         phoneNumber: user.phoneNumber,
