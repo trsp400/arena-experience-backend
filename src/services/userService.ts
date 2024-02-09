@@ -27,14 +27,26 @@ export const UserService = {
     return prisma.user.findMany({ where: { role: 'user' } });
   },
 
-  async updateUser(id: number, userData: UserInput): Promise<User> {
-    const updateData: UserInput = { ...userData };
+  async updateUser(id: number, userData: UserInput): Promise<User | null> {
+
+    // Verifica se o email já está sendo usado por outro usuário
+    if (userData.email) {
+      const existingUser = await prisma.user.findUnique({
+        where: { email: userData.email },
+      });
+      if (existingUser && existingUser.id !== id) {
+        // Lança um erro ou retorna null/outra indicação de que o email já está em uso
+        throw new Error('Email already in use by another user');
+      }
+    }
+
+    // Continua com a atualização se o email é único ou não foi fornecido
     if (userData.password) {
       const hashedPassword = await bcrypt.hash(userData.password, 10);
-      updateData.passwordHash = hashedPassword;
+      userData.passwordHash = hashedPassword;
+      delete userData.password;
     }
-    delete updateData.password;
-    return prisma.user.update({ where: { id }, data: updateData });
+    return prisma.user.update({ where: { id }, data: userData });
   },
 
   async deleteUser(id: number): Promise<User> {

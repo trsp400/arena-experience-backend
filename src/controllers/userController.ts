@@ -94,7 +94,7 @@ export const UserController = {
       }
 
       const updateSchema = Joi.object({
-        email: Joi.string().email(),
+        email: Joi.string().email().optional(),
         password: Joi.string().optional(),
         fullName: Joi.string().optional(),
         profileImageUrl: Joi.string().uri().allow(null, ''),
@@ -109,6 +109,7 @@ export const UserController = {
 
       const { error, value } = updateSchema.validate(request.body);
       if (error) {
+        console.log(error);
         return reply.status(400).send(error.details);
       }
 
